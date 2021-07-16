@@ -1,0 +1,96 @@
+@import url("http://fonts.googleapis.com/css?family=Fondamento&subset=latin,latin-ext");
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.homepage-container {
+    height: 97%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Fondamento", sans-serif; /* background-color: aqua; */
+}
+
+.title {
+    font-size: 72px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+.menu-item {
+    margin: 15px;
+}
+
+.menu-item > button {
+    padding: 5px 10px;
+    font-size: 24px;
+    width: 150px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-item > button:focus {
+    outline: none;
+}
+
+.menu-item > button:active {
+    scale: 0.88;
+}
+
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.credits {
+    padding: 5px;
+}
+
+/***************************************************************************/
+
+.sudokupage-container {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Fondamento", sans-serif; /* background-color: aqua; */
+}
+
+.sudoku {
+    border: 4px solid black;
+    border-collapse: collapse;
+}
+.sudoku tr {
+    padding: 0;
+}
+.sudoku td {
+    padding: 0;
+    border: 1px solid black;
+    width: 4em;
+    height: 4em;
+}
+.sudoku input {
+    width: 1em;
+    border: 0;
+    font-size: 25pt;
+    text-align: center;
+}
+.sudoku .thick_right {
+    border-right: 4px solid black;
+}
+.sudoku .thick_bottom {
+    border-bottom: 4px solid black;
+}
