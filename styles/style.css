@@ -25,7 +25,7 @@ body {
     margin: 15px;
 }
 
-.menu-item > button {
+.menu-button {
     padding: 5px 10px;
     font-size: 24px;
     width: 150px;
@@ -36,11 +36,18 @@ body {
     cursor: pointer;
 }
 
-.menu-item > button:focus {
+.menu-button:hover {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    font-weight: bold;
+}
+
+.menu-button:focus {
     outline: none;
 }
 
-.menu-item > button:active {
+.menu-button:active {
     scale: 0.88;
 }
 
@@ -78,20 +85,55 @@ footer {
 }
 .sudoku td {
     padding: 0;
+    margin: 0;
     border: 1px solid black;
     width: 4em;
     height: 4em;
     text-align: center;
+    cursor: pointer;
+    /* background-color: #fff; */
 }
+
+.active-td {
+    background-color: bisque;
+}
+
 .sudoku input {
     width: 1em;
     border: 0;
     font-size: 25pt;
     text-align: center;
+    background-color: inherit;
 }
 .sudoku .thick_right {
     border-right: 4px solid black;
 }
 .sudoku .thick_bottom {
     border-bottom: 4px solid black;
+}
+
+.sudoku-container {
+    display: flex;
+}
+
+.button-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 4rem;
+}
+
+.button-list-item {
+    margin: 20px 10px;
+    background-color: #fff;
+    border: 2px solid #000;
+    color: #000;
+    font-weight: bold;
+}
+
+.button-list-item:hover {
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
 }
