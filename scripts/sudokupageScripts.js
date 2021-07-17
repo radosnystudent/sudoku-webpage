@@ -105,7 +105,11 @@ for (let i = 0; i < 9; i++) {
     }
 }
 
+const message = document.querySelector("h3");
+
 const checkSolution = () => {
+    let countWrong = 0;
+    let countCorrect = 0;
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             if (
@@ -114,12 +118,36 @@ const checkSolution = () => {
                 htmlBoard[i][j].children[0].value !== ""
             ) {
                 htmlBoard[i][j].children[0].style.color = "red";
+                countWrong++;
             } else {
-                if (!htmlBoard[i][j].children[0].disabled) {
+                if (
+                    !htmlBoard[i][j].children[0].disabled &&
+                    parseInt(htmlBoard[i][j].children[0].value, 10) ===
+                        filledGrid[i][j]
+                ) {
                     htmlBoard[i][j].children[0].style.color = "black";
+                    console.log(i, " ", j);
+                    countCorrect++;
                 }
             }
         }
+    }
+
+    const toFill =
+        myParam === "e" ? 25 : diff === "m" ? 35 : diff === "h" ? 45 : 25;
+
+    if (countWrong !== 0) {
+        message.innerText = `Liczba błędów: ${countWrong}`;
+        message.style.color = "red";
+    } else {
+        message.innerText = "";
+    }
+    if (countCorrect === toFill) {
+        message.innerText = `Gratulacje! Rozwiązałeś poprawnie!`;
+        message.style.color = "green";
+        setTimeout(() => {
+            location.href = "index.html";
+        }, 2000);
     }
 };
 
