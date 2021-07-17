@@ -81,6 +81,7 @@ footer {
     border: 1px solid black;
     width: 4em;
     height: 4em;
+    text-align: center;
 }
 .sudoku input {
     width: 1em;
