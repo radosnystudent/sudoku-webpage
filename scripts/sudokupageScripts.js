@@ -35,6 +35,12 @@ const myParam = location.search.split("diff=")[1]
     : "e";
 
 const title = document.querySelector(".title");
+const numberButtons = document.querySelectorAll(".number-button");
+const squares = document.querySelectorAll("tr");
+const message = document.querySelector("h3");
+const menuButton = document.getElementById("menu-button");
+const checkButton = document.getElementById("check-button");
+
 title.innerText = `Poziom trudności: ${
     myParam === "e"
         ? "łatwy"
@@ -61,7 +67,6 @@ const board = filledGrid.map((arr) => {
     return arr.slice();
 });
 
-const squares = document.querySelectorAll("tr");
 const pickedCells = getRemovedCells(myParam);
 
 pickedCells.forEach((cell) => {
@@ -88,6 +93,18 @@ for (let i = 0; i < 9; i++) {
                 if (htmlBoard[i][j].children[0].style.color === "red") {
                     htmlBoard[i][j].children[0].style.color = "#000";
                 }
+                numberButtons.forEach((button) => {
+                    if (
+                        parseInt(button.firstChild.nodeValue, 10) ===
+                        parseInt(htmlBoard[i][j].children[0].value, 10)
+                    ) {
+                        if (
+                            button.classList.contains("number-button-clicked")
+                        ) {
+                            htmlBoard[i][j].classList.add("active-number");
+                        }
+                    }
+                });
             });
             htmlBoard[i][j].children[0].addEventListener("focusin", () => {
                 for (let k = 0; k < 9; k++) {
@@ -104,8 +121,6 @@ for (let i = 0; i < 9; i++) {
         }
     }
 }
-
-const message = document.querySelector("h3");
 
 const isFilled = () => {
     for (let i = 0; i < 9; i++) {
@@ -169,15 +184,12 @@ const checkSolution = () => {
     }
 };
 
-const menuButton = document.getElementById("menu-button");
 menuButton.addEventListener("click", () => {
     location.href = "index.html";
 });
 
-const checkButton = document.getElementById("check-button");
 checkButton.addEventListener("click", () => checkSolution());
 
-const numberButtons = document.querySelectorAll(".number-button");
 numberButtons.forEach((button) => {
     button.addEventListener("click", () => {
         button.classList.toggle("number-button-clicked");
@@ -187,8 +199,11 @@ numberButtons.forEach((button) => {
                     parseInt(htmlBoard[i][j].children[0].value, 10) ===
                     parseInt(button.firstChild.nodeValue, 10)
                 ) {
-                    console.log("here");
-                    htmlBoard[i][j].classList.toggle("active-number");
+                    if (button.classList.contains("number-button-clicked")) {
+                        htmlBoard[i][j].classList.add("active-number");
+                    } else {
+                        htmlBoard[i][j].classList.remove("active-number");
+                    }
                 }
             }
         }
