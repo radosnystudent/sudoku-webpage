@@ -107,47 +107,65 @@ for (let i = 0; i < 9; i++) {
 
 const message = document.querySelector("h3");
 
-const checkSolution = () => {
-    let countWrong = 0;
-    let countCorrect = 0;
+const isFilled = () => {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
-            if (
-                parseInt(htmlBoard[i][j].children[0].value, 10) !==
-                    filledGrid[i][j] &&
-                htmlBoard[i][j].children[0].value !== ""
-            ) {
-                htmlBoard[i][j].children[0].style.color = "red";
-                countWrong++;
-            } else {
-                if (
-                    !htmlBoard[i][j].children[0].disabled &&
-                    parseInt(htmlBoard[i][j].children[0].value, 10) ===
-                        filledGrid[i][j]
-                ) {
-                    htmlBoard[i][j].children[0].style.color = "black";
-                    console.log(i, " ", j);
-                    countCorrect++;
-                }
+            if (htmlBoard[i][j].children[0].value !== "") {
+                return false;
             }
         }
     }
+    return true;
+};
 
-    const toFill =
-        myParam === "e" ? 25 : diff === "m" ? 35 : diff === "h" ? 45 : 25;
+const checkSolution = () => {
+    if (isFilled()) {
+        let countWrong = 0;
+        let countCorrect = 0;
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                if (
+                    parseInt(htmlBoard[i][j].children[0].value, 10) !==
+                        filledGrid[i][j] &&
+                    htmlBoard[i][j].children[0].value !== ""
+                ) {
+                    htmlBoard[i][j].children[0].style.color = "red";
+                    countWrong++;
+                } else {
+                    if (
+                        !htmlBoard[i][j].children[0].disabled &&
+                        parseInt(htmlBoard[i][j].children[0].value, 10) ===
+                            filledGrid[i][j]
+                    ) {
+                        htmlBoard[i][j].children[0].style.color = "black";
+                        countCorrect++;
+                    }
+                }
+            }
+        }
 
-    if (countWrong !== 0) {
-        message.innerText = `Liczba błędów: ${countWrong}`;
-        message.style.color = "red";
+        const toFill =
+            myParam === "e" ? 25 : diff === "m" ? 35 : diff === "h" ? 45 : 25;
+
+        if (countWrong !== 0) {
+            message.innerText = `Liczba błędów: ${countWrong}`;
+            message.style.color = "red";
+        } else {
+            message.innerText = "";
+        }
+        if (countCorrect === toFill) {
+            message.innerText = `Gratulacje! Rozwiązałeś poprawnie!`;
+            message.style.color = "green";
+            setTimeout(() => {
+                location.href = "index.html";
+            }, 2000);
+        }
     } else {
-        message.innerText = "";
-    }
-    if (countCorrect === toFill) {
-        message.innerText = `Gratulacje! Rozwiązałeś poprawnie!`;
-        message.style.color = "green";
+        message.innerText = `Nie wszystkie pola zostały uzupełnione!`;
+        message.style.color = "red";
         setTimeout(() => {
-            location.href = "index.html";
-        }, 2000);
+            message.innerText = "";
+        }, 1500);
     }
 };
 
@@ -158,3 +176,21 @@ menuButton.addEventListener("click", () => {
 
 const checkButton = document.getElementById("check-button");
 checkButton.addEventListener("click", () => checkSolution());
+
+const numberButtons = document.querySelectorAll(".number-button");
+numberButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        button.classList.toggle("number-button-clicked");
+        for (let i = 0; i < htmlBoard.length; i++) {
+            for (let j = 0; j < htmlBoard.length; j++) {
+                if (
+                    parseInt(htmlBoard[i][j].children[0].value, 10) ===
+                    parseInt(button.firstChild.nodeValue, 10)
+                ) {
+                    console.log("here");
+                    htmlBoard[i][j].classList.toggle("active-number");
+                }
+            }
+        }
+    });
+});

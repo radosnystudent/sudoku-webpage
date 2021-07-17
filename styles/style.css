@@ -3,11 +3,11 @@
 
 body {
     margin: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 .homepage-container {
-    height: 97%;
+    height: 100vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -55,6 +55,9 @@ body {
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -101,6 +104,10 @@ footer {
     background-color: bisque;
 }
 
+.active-number {
+    background-color: aquamarine;
+}
+
 .sudoku input {
     width: 1em;
     border: 0;
@@ -136,25 +143,57 @@ footer {
     font-weight: bold;
 }
 
+.number-button-clicked {
+    background-color: #fff;
+    border: 2px solid #000;
+    color: #000;
+    font-weight: bold;
+}
+
 .message {
     font-family: "Monda", sans-serif;
     font-size: 32px;
     text-align: center;
 }
 
-@media (max-width: 600px) {
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 250px;
+}
+
+.buttons-numbers-list {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-left: 50px;
+}
+
+.number-button {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+.number-button:hover {
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
     body {
         height: 100%;
     }
 
     .sudokupage-container {
-        /* overflow: scroll; */
         padding: 10px;
         max-width: 90%;
     }
 
     .sudokupage-container h1 {
-        font-size: 32px;
+        font-size: 40px;
     }
 
     .button-list {
@@ -167,5 +206,17 @@ footer {
         bottom: 0;
         left: 0;
         width: 100%;
+    }
+
+    .game-container {
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .buttons-numbers-list {
+        flex-direction: row;
+        margin: 0;
+        width: 100%;
+        flex-wrap: wrap;
     }
 }
