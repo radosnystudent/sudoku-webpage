@@ -18,15 +18,11 @@ const shuffleArray = (array) => {
     }
 };
 
-const sleep = (time) => {
-    return new Promise((resolve) => setTimeout(resolve, time));
-};
-
 class Sudoku {
     constructor(grid) {
         this.grid = grid;
         this.counter = 1;
-        this.numberList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        this.possibleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     }
 
     getGrid() {
@@ -83,9 +79,9 @@ class Sudoku {
             col = i % 9;
 
             if (this.grid[row][col] === 0) {
-                shuffleArray(this.numberList);
+                shuffleArray(this.possibleNumbers);
 
-                for (const value of this.numberList) {
+                for (const value of this.possibleNumbers) {
                     if (!this.alreadyInRow(grid[row], value)) {
                         if (!this.alreadyInColumn(col, value)) {
                             let square;
