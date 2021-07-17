@@ -1,6 +1,10 @@
 @import url("http://fonts.googleapis.com/css?family=Fondamento&subset=latin,latin-ext");
 @import url("http://fonts.googleapis.com/css?family=Monda&subset=latin,latin-ext");
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     height: 100%;
@@ -184,6 +188,10 @@ footer {
 
 @media (max-width: 900px) {
     body {
+        height: 100%;
+    }
+
+    .homepage-container {
         height: 100%;
     }
 
