@@ -40,6 +40,7 @@ const squares = document.querySelectorAll("tr");
 const message = document.querySelector("h3");
 const menuButton = document.getElementById("menu-button");
 const checkButton = document.getElementById("check-button");
+const overlay = document.querySelector(".message-overlay");
 
 title.innerText = `Poziom trudności: ${
     myParam === "e"
@@ -125,7 +126,7 @@ for (let i = 0; i < 9; i++) {
 const isFilled = () => {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
-            if (htmlBoard[i][j].children[0].value !== "") {
+            if (htmlBoard[i][j].children[0].value === "") {
                 return false;
             }
         }
@@ -163,12 +164,21 @@ const checkSolution = () => {
             myParam === "e" ? 25 : diff === "m" ? 35 : diff === "h" ? 45 : 25;
 
         if (countWrong !== 0) {
+            overlay.style.display = "flex";
             message.innerText = `Liczba błędów: ${countWrong}`;
             message.style.color = "red";
+            setTimeout(() => {
+                overlay.style.display = "none";
+            }, 1500);
         } else {
             message.innerText = "";
         }
+
+        console.log(countCorrect);
+        console.log(toFill);
+
         if (countCorrect === toFill) {
+            overlay.style.display = "flex";
             message.innerText = `Gratulacje! Rozwiązałeś poprawnie!`;
             message.style.color = "green";
             setTimeout(() => {
@@ -204,6 +214,16 @@ numberButtons.forEach((button) => {
                     } else {
                         htmlBoard[i][j].classList.remove("active-number");
                     }
+                } else {
+                    htmlBoard[i][j].classList.remove("active-number");
+                    numberButtons.forEach((btn) => {
+                        if (
+                            parseInt(btn.firstChild.nodeValue, 10) !==
+                            parseInt(button.firstChild.nodeValue, 10)
+                        ) {
+                            btn.classList.remove("number-button-clicked");
+                        }
+                    });
                 }
             }
         }
