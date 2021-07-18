@@ -1,4 +1,8 @@
 const getRemovedCells = (diff) => {
+    /*
+    function generate array contains
+    random picked cells that will be removed from board
+    */
     const isCellNotPicked = (pickedCells, cell) => {
         if (pickedCells.length === 0) {
             return true;
@@ -52,6 +56,7 @@ title.innerText = `Poziom trudności: ${
         : "łatwy"
 }`;
 
+// create empty grid
 const grid = [];
 for (let i = 0; i < 9; i++) {
     grid.push([]);
@@ -60,20 +65,23 @@ for (let i = 0; i < 9; i++) {
     }
 }
 
+// generate sudoku board
 const sudoku = new Sudoku(grid);
-
 sudoku.fillGrid();
 const filledGrid = sudoku.getGrid();
 const board = filledGrid.map((arr) => {
     return arr.slice();
 });
 
+// get cells and remove them from board (replace number with 0)
+// these will be the places for the numbers to be guessed by the player
 const pickedCells = getRemovedCells(myParam);
 
 pickedCells.forEach((cell) => {
     board[cell[0]][cell[1]] = 0;
 });
 
+// create array contains html table fields that represents game board
 const htmlBoard = [];
 let counter = 0;
 squares.forEach((square) => {
@@ -86,10 +94,17 @@ squares.forEach((square) => {
 
 for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
+        // if cell is not 0 - write the number and make cell disable for the player
         if (board[i][j] !== 0) {
             htmlBoard[i][j].children[0].value = board[i][j];
             htmlBoard[i][j].children[0].disabled = true;
         } else {
+            // if cell isn't empty then gets few listeners
+
+            // 1) on change check if have red color (after click 'check solution' button
+            // wrong answers will be coloured on red) set back to black (player changed his previous, wrong answer)
+            // then check if any of highlight button is active and if button with number, that player just typed, is active
+            // highlight this field too
             htmlBoard[i][j].children[0].addEventListener("change", () => {
                 if (htmlBoard[i][j].children[0].style.color === "red") {
                     htmlBoard[i][j].children[0].style.color = "#000";
@@ -107,12 +122,16 @@ for (let i = 0; i < 9; i++) {
                     }
                 });
             });
+
+            // 2) if cell is focus - clicked on input - highlight whole column and row
             htmlBoard[i][j].children[0].addEventListener("focusin", () => {
                 for (let k = 0; k < 9; k++) {
                     htmlBoard[i][k].classList.add("active-td");
                     htmlBoard[k][j].classList.add("active-td");
                 }
             });
+
+            // 3) if cell is stop being focus - clicked on input - highlight whole column and row
             htmlBoard[i][j].children[0].addEventListener("focusout", () => {
                 for (let k = 0; k < 9; k++) {
                     htmlBoard[i][k].classList.remove("active-td");
@@ -124,6 +143,7 @@ for (let i = 0; i < 9; i++) {
 }
 
 const isFilled = () => {
+    // check if board is filled
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             if (htmlBoard[i][j].children[0].value === "") {
@@ -135,6 +155,7 @@ const isFilled = () => {
 };
 
 const checkSolution = () => {
+    // solution is check only if board is fulled
     if (isFilled()) {
         let countWrong = 0;
         let countCorrect = 0;
